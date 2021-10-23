@@ -13,7 +13,7 @@ typedef struct phonebookStruct
     char phone_number[MAX_NR_LEN];
 }Phonebook;
 
-int format_number(const char* raw_number, char* converted);
+int phonebook_format_number(const char* raw_number, char* converted);
 bool is_number(char c);
 
 #endif // PHONEBOOK_H

@@ -1,22 +1,21 @@
 #include "phonebook.h"
 #include <stdio.h>
+#include "main.c"
 #include <string.h>
 #include <stdbool.h>
 
-/* Takes user input and formats the number to appropriate format. */
-static void phonebook_add_entry(void) {
-    char raw_number_input[MAX_NAME_LEN]; //Should this be bigger than MAX_NAME_LEN for extra/special chars?
-    Phonebook new_entry;
+int phonebook_add(Phonebook *new_entry) {
+    int free_slot = find_free_slot();
+    if (free_slot == -1) {
+        printf("Phonebook is out of memory!.\n");
+        return -1;
+    }
+    memcpy(&phonebook[free_slot], new_entry, sizeof(Phonebook)); //dubbelkolla
+    //phonebook[free_slot] = new_entry;
 
-    printf("Enter the name: \n");
-    fgets(new_entry.name, MAX_NAME_LEN, stdin);
-    getc(stdin);  //tar bort new line från stdin
-    
-    printf("Enter %d's phone number:\n", new_entry.name);
-    fgets(raw_number_input, MAX_NR_LEN, stdin);
-    getc(stdin);  //tar bort new line från stdin
-    /* Formats the number to the correct format */
-    phonebook_format_number(raw_number_input, new_entry.phone_number);
+    /* Mark that slot as occupied. */
+    occupied[free_slot] == true;
+    return 0;
 }
 
 /* alters any unnecessary symbols and spaces from the raw characters adn */
@@ -41,3 +40,6 @@ bool is_number(char c) {
     return c > '0' && c < '9';
 }
 
+
+
+/* phonebook_search() */
