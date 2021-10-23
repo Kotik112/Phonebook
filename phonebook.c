@@ -4,6 +4,10 @@
 #include <string.h>
 #include <stdbool.h>
 
+static Phonebook phonebook[MAX_PHONE_ENTRIES];
+/* True/1 = Occupied, False/0 = Available */
+static bool occupied[MAX_PHONE_ENTRIES];
+
 int phonebook_add(Phonebook *new_entry) {
     int free_slot = find_free_slot();
     if (free_slot == -1) {
@@ -18,8 +22,20 @@ int phonebook_add(Phonebook *new_entry) {
     return 0;
 }
 
+/* Loop through the entire phonebook and check if 
+                    there is an available free slot.*/
+int find_free_slot() {
+    for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
+        if (!occupied[i]) {
+            return i;
+        }
+    }
+    /* -1, did not find an empty slot */
+    return -1;
+}
+
 /* alters any unnecessary symbols and spaces from the raw characters adn */
-int phonebook_format_number(const char* raw_number, char* converted) {
+int phonebook_format_number(char* raw_number, char* converted) {
     char temporary_number[MAX_NR_LEN];
     size_t len = strlen(raw_number);
     if (len <= 0 || len > MAX_NR_LEN) {
@@ -32,6 +48,7 @@ int phonebook_format_number(const char* raw_number, char* converted) {
             k++;
         }
     }
+    //memcpy()?
     raw_number = temporary_number; 
     return 0;
 }
