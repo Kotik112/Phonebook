@@ -1,6 +1,5 @@
 #include "phonebook.h"
 #include <stdio.h>
-#include "main.c"
 #include <string.h>
 #include <stdbool.h>
 
@@ -18,7 +17,7 @@ int phonebook_add(Phonebook *new_entry) {
     //phonebook[free_slot] = new_entry;
 
     /* Mark that slot as occupied. */
-    occupied[free_slot] == true;
+    occupied[free_slot] = true;
     return 0;
 }
 
@@ -35,7 +34,7 @@ int find_free_slot() {
 }
 
 /* alters any unnecessary symbols and spaces from the raw characters adn */
-int phonebook_format_number(char* raw_number, char* converted) {
+int phonebook_format_number(const char* raw_number, char* converted) {
     char temporary_number[MAX_NR_LEN];
     size_t len = strlen(raw_number);
     if (len <= 0 || len > MAX_NR_LEN) {

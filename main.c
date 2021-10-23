@@ -19,7 +19,7 @@ static void add_entry(void) {
     getc(stdin);  //tar bort new line från stdin
     
     /* Phone number input: */
-    printf("Enter %d's phone number:\n", new_entry.name);
+    printf("Enter %s's phone number:\n", new_entry.name);
     fgets(raw_number_input, MAX_NR_LEN, stdin);
     getc(stdin);  //tar bort new line från stdin
     int status = phonebook_format_number(raw_number_input, new_entry.phone_number);
@@ -45,7 +45,7 @@ static void print_menu(void) {
     //printf("4.");
 }
 
-int main(int argc, char *argv) {
+int main(int argc, char **argv) {
     int menu_choice;
     print_menu();
     scanf("%d", &menu_choice);
