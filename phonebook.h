@@ -14,7 +14,7 @@ typedef struct
 }Phonebook;
 
 int phonebook_add(Phonebook *new_entry);
-int find_free_slot();
+int find_free_slot(void);
 int phonebook_format_number(const char* raw_number, char* converted);
 bool is_number(char c);
 

@@ -14,7 +14,6 @@ int phonebook_add(Phonebook *new_entry) {
         return -1;
     }
     memcpy(&phonebook[free_slot], new_entry, sizeof(Phonebook)); //dubbelkolla
-    //phonebook[free_slot] = new_entry;
 
     /* Mark that slot as occupied. */
     occupied[free_slot] = true;
@@ -23,7 +22,7 @@ int phonebook_add(Phonebook *new_entry) {
 
 /* Loop through the entire phonebook and check if 
                     there is an available free slot.*/
-int find_free_slot() {
+int find_free_slot(void) {
     for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
         if (!occupied[i]) {
             return i;
@@ -33,7 +32,7 @@ int find_free_slot() {
     return -1;
 }
 
-/* alters any unnecessary symbols and spaces from the raw characters adn */
+/* Ignores any unnecessary symbols and spaces from the raw input by user */
 int phonebook_format_number(const char* raw_number, char* converted) {
     char temporary_number[MAX_NR_LEN];
     size_t len = strlen(raw_number);
