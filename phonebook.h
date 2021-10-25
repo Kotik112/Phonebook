@@ -15,6 +15,8 @@ typedef struct
 
 int phonebook_add(Phonebook *new_entry);
 int find_free_slot(void);
+int phonebook_search(const char search_query[MAX_NAME_LEN]);
+void phonebook_print_index(int index);
 int phonebook_format_number(const char* raw_number, char* converted);
 bool is_number(char c);
 
