@@ -10,13 +10,13 @@ static bool occupied[MAX_PHONE_ENTRIES];
 int phonebook_add(Phonebook *new_entry) {
     int free_slot = find_free_slot();
     if (free_slot == -1) {
-        printf("Phonebook is out of memory!.\n");
         return -1;
     }
     memcpy(&phonebook[free_slot], new_entry, sizeof(Phonebook)); //dubbelkolla
 
     /* Mark that slot as occupied. */
     occupied[free_slot] = true;
+    //printf("Name: %s, Phone Nr: %s.\n", phonebook[free_slot].name, phonebook[free_slot].phone_number);
     return 0;
 }
 
@@ -32,6 +32,7 @@ int find_free_slot(void) {
     return -1;
 }
 
+/* Searches the phonebook for an entry matcing the search_query */
 int phonebook_search(const char search_query[MAX_NAME_LEN]) {
     for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
         if (search_query == phonebook[i].name) {
@@ -42,6 +43,14 @@ int phonebook_search(const char search_query[MAX_NAME_LEN]) {
 
 void phonebook_print_index(int index) {
     printf("Name: %s, Phone Nr: %s.\n", phonebook[index].name, phonebook[index].phone_number);
+}
+
+void phonebook_print_contents(void) {
+    for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
+        if (occupied[i] == true) {
+            printf("Name: %s, Phone Nr: %s.\n", phonebook[i].name, phonebook[i].phone_number);
+        }   
+    }
 }
 
 /* Ignores any unnecessary symbols and spaces from the raw input by user */
@@ -58,7 +67,7 @@ int phonebook_format_number(const char* raw_number, char* converted) {
             k++;
         }
     }
-    //memcpy()?
+    //memcpy(&concerted, temporary_number, MAX_NR_LEN)?
     raw_number = temporary_number; 
     return 0;
 }
