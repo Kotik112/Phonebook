@@ -17,6 +17,7 @@ static void add_entry(void) {
     printf("Enter the name: \n");
     fgets(new_entry.name, MAX_NAME_LEN, stdin);
     getc(stdin);  //tar bort new line från stdin
+    /* Test print */
     printf("%s", new_entry.name);
 
     /* Phone number input: */
