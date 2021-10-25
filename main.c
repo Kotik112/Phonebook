@@ -34,7 +34,14 @@ static void search(void) {
     printf("Search by name!\nEnter the name: ");
     fgets(name, MAX_NAME_LEN, stdin);
     getc(stdin);
-    //phonebook_search();
+    int matching_index = phonebook_search(name);
+    phonebook_print_index(matching_index);
+    
+}
+static void print_all_indices(void) {
+    for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
+        phonebook_print_index(i);
+    }
 }
 
 static void print_menu(void) {
@@ -57,11 +64,11 @@ int main(int argc, char **argv) {
         break;
 
     case 2:     /* Search by name */
-        //phonebook_search();
+        search();
         break;
 
     case 3:     /* Print all the phonebook contents. */     
-        /* code */
+        //print_all_indices();
         break;
     
     default:

@@ -32,6 +32,18 @@ int find_free_slot(void) {
     return -1;
 }
 
+int phonebook_search(const char search_query[MAX_NAME_LEN]) {
+    for (int i = 0; i < MAX_PHONE_ENTRIES; i++) {
+        if (search_query == phonebook[i].name) {
+            return i;
+        }
+    }
+}
+
+void phonebook_print_index(int index) {
+    printf("Name: %s, Phone Nr: %s.\n", phonebook[index].name, phonebook[index].phone_number);
+}
+
 /* Ignores any unnecessary symbols and spaces from the raw input by user */
 int phonebook_format_number(const char* raw_number, char* converted) {
     char temporary_number[MAX_NR_LEN];
