@@ -17,16 +17,21 @@ static void add_entry(void) {
     printf("Enter the name: \n");
     fgets(new_entry.name, MAX_NAME_LEN, stdin);
     getc(stdin);  //tar bort new line från stdin
-    
+    /* Test print */
+    printf("%s", new_entry.name);
+
     /* Phone number input: */
-    printf("Enter %s's phone number:\n", new_entry.name);
+    printf("Enter the phone no.:\n", new_entry.name);
     fgets(raw_number_input, MAX_NR_LEN, stdin);
     getc(stdin);  //tar bort new line från stdin
-    int status = phonebook_format_number(raw_number_input, new_entry.phone_number);
-    if (status == -1) {
+    int format_status = phonebook_format_number(raw_number_input, new_entry.phone_number);
+    if (format_status == -1) {
         printf("Phonebook Number formatter failed.\n");
     }
-    
+    int add_status = phonebook_add(&new_entry);
+    if (add_status == -1) {
+        printf("Phonebook is out of memory!.\n");
+    }
 }
 
 static void search(void) {
@@ -34,8 +39,12 @@ static void search(void) {
     printf("Search by name!\nEnter the name: ");
     fgets(name, MAX_NAME_LEN, stdin);
     getc(stdin);
-    //phonebook_search();
+    int matching_index = phonebook_search(name);
+    phonebook_print_index(matching_index);
+    
 }
+
+
 
 static void print_menu(void) {
     printf("\n*****\tMAIN MENU\t*****\n");
@@ -46,28 +55,29 @@ static void print_menu(void) {
 }
 
 int main(int argc, char **argv) {
-    int menu_choice;
-    print_menu();
-    scanf("%d", &menu_choice);
-    system("cls");
-    switch (menu_choice)
-    {
-    case 1:     /* New entry */
-        add_entry();
-        break;
+    while(true) {
+        int menu_choice;
+        print_menu();
+        scanf("%d", &menu_choice);
+        /* system("cls"); */
+        switch (menu_choice)
+        {
+        case 1:     /* New entry */
+            add_entry();
+            break;
 
-    case 2:     /* Search by name */
-        //phonebook_search();
-        break;
+        case 2:     /* Search by name */
+            search();
+            break;
 
-    case 3:     /* Print all the phonebook contents. */     
-        /* code */
-        break;
-    
-    default:
-        printf("Invalid input.\n");
-        break;
-    }
-    
+        case 3:     /* Print all the phonebook contents. */     
+            phonebook_print_contents();
+            break;
+        
+        /* default:
+            printf("Invalid choice.\n");
+            break; */
+        }
+    }   
     return 0;
 }
