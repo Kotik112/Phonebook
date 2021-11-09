@@ -8,6 +8,12 @@
 #include <string.h>
 #include <stdlib.h>
 
+void remove_trailing_nl(char* text) {
+    int i;
+    for (i = 0; text[i] != '\n'; i++) {}
+    text[i] = '\0';
+}
+
 /* Takes user input and formats the number to appropriate format. */
 static void add_entry(void) {
     char raw_number_input[MAX_NAME_LEN]; //Make bigger than MAX_NAME_LEN (+5/10) for extra/special chars?
@@ -16,9 +22,8 @@ static void add_entry(void) {
     /* Name input: */
     printf("Enter the name: \n");
     fgets(new_entry.name, MAX_NAME_LEN, stdin);
+    remove_trailing_nl(new_entry.name);
     getc(stdin);  //tar bort new line från stdin
-    /* Test print */
-    printf("%s", new_entry.name);
 
     /* Phone number input: */
     printf("Enter the phone no.:\n", new_entry.name);
@@ -34,6 +39,8 @@ static void add_entry(void) {
     }
 }
 
+
+
 static void search(void) {
     char name[MAX_NAME_LEN];
     printf("Search by name!\nEnter the name: ");
@@ -43,8 +50,6 @@ static void search(void) {
     phonebook_print_index(matching_index);
     
 }
-
-
 
 static void print_menu(void) {
     printf("\n*****\tMAIN MENU\t*****\n");
