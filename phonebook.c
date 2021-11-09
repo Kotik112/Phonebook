@@ -39,6 +39,7 @@ int phonebook_search(const char search_query[MAX_NAME_LEN]) {
             return i;
         }
     }
+    return -1;
 }
 
 void phonebook_print_index(int index) {
@@ -67,8 +68,9 @@ int phonebook_format_number(const char* raw_number, char* converted) {
             k++;
         }
     }
-    //memcpy(&concerted, temporary_number, MAX_NR_LEN)?
-    raw_number = temporary_number; 
+    converted = temporary_number;
+    converted[k] = '\0';
+     
     return 0;
 }
 

@@ -12,6 +12,7 @@ void remove_trailing_nl(char* text) {
     int i;
     for (i = 0; text[i] != '\n'; i++) {}
     text[i] = '\0';
+    i++;
 }
 
 /* Takes user input and formats the number to appropriate format. */
@@ -22,13 +23,14 @@ static void add_entry(void) {
     /* Name input: */
     printf("Enter the name: \n");
     fgets(new_entry.name, MAX_NAME_LEN, stdin);
+    //printf("NAME: %s", new_entry.name);
     remove_trailing_nl(new_entry.name);
-    getc(stdin);  //tar bort new line från stdin
+    //printf("NAME AN: %s", new_entry.name);
 
     /* Phone number input: */
-    printf("Enter the phone no.:\n", new_entry.name);
+    printf("Enter the phone no.:\n");
     fgets(raw_number_input, MAX_NR_LEN, stdin);
-    getc(stdin);  //tar bort new line från stdin
+    printf("Phone Raw: %s\n", raw_number_input);
     int format_status = phonebook_format_number(raw_number_input, new_entry.phone_number);
     if (format_status == -1) {
         printf("Phonebook Number formatter failed.\n");
@@ -38,8 +40,6 @@ static void add_entry(void) {
         printf("Phonebook is out of memory!.\n");
     }
 }
-
-
 
 static void search(void) {
     char name[MAX_NAME_LEN];
